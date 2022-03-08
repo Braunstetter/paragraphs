@@ -1,0 +1,21 @@
+{
+  "name": "@braunstetter/paragraphs",
+  "version": "0.1.0",
+  "description": "Javascript for @braunstetter/paragraphs",
+  "author": "Michael Brauner",
+  "license": "MIT",
+  "private": false,
+  "symfony": {
+    "controllers": {
+      "toggle": {
+        "main": "controllers/paragraphs_controller.js",
+        "webpackMode": "eager",
+        "fetch": "eager",
+        "enabled": true
+      }
+    }
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.0.0"
+  }
+}
