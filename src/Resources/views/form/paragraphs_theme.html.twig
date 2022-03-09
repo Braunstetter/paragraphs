@@ -31,17 +31,17 @@
         <div class="icon-line">
 
             {% if form.parent.vars.allow_delete %}
-                <button data-action="paragraphs#remove">
+                <button data-action="braunstetter--paragraphs--paragraphs#remove">
                     {{ source('images/svg/icon-remove.svg') }}
                 </button>
             {% endif %}
 
             {% if form.parent.vars.sortable %}
-                <button data-action="paragraphs#moveDown">
+                <button data-action="braunstetter--paragraphs--paragraphs#moveDown">
                     {{ source('images/svg/icon-xs_arrow_down.svg') }}
                 </button>
 
-                <button data-action="paragraphs#moveUp">
+                <button data-action="braunstetter--paragraphs--paragraphs#moveUp">
                     {{ source('images/svg/icon-xs_arrow_up.svg') }}
                 </button>
             {% endif %}

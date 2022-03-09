@@ -135,7 +135,7 @@ class ParagraphsType extends AbstractType
         }
 
         $view->vars['row_attr'] = Arr::attachToAttrArray($view->vars['row_attr'], [
-            'data-braunstetter--paragraphs--paragraphs' => 'paragraphs'
+            'data-controller' => 'braunstetter--paragraphs--paragraphs'
         ]);
 
         $view->vars['attr'] = Arr::attachToAttrArray($view->vars['attr'], [

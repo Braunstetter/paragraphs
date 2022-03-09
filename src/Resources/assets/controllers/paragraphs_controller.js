@@ -13,7 +13,6 @@ export default class extends Controller {
     connect() {
         this.index = this.itemsCountValue = this.fieldContainerTarget.childNodes.length
         this.container = this.element.getElementsByClassName('paragraphs')[0]
-
         this.updatePositionValues()
     }
 

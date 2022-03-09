@@ -7,7 +7,7 @@
   "private": false,
   "symfony": {
     "controllers": {
-      "toggle": {
+      "paragraphs": {
         "main": "controllers/paragraphs_controller.js",
         "webpackMode": "eager",
         "fetch": "eager",

@@ -2,7 +2,7 @@
   "name": "braunstetter/paragraphs",
   "description": "Create polymorphic forms like drupal/paragraphs but for Symfony.",
   "type": "symfony-bundle",
-  "keywords": ["form", "polymorphic", "form-type", "paragraphs"],
+  "keywords": ["form", "polymorphic", "form-type", "paragraphs", "symfony-ux"],
   "license": "MIT",
   "require": {
     "php": "^8.0",
