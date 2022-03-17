@@ -31,20 +31,20 @@ export default class extends Controller {
         this.updatePositionValues()
     }
 
-    removeItem(event) {
+    remove(event) {
         event.preventDefault()
 
-        this.fieldTargets.forEach(element => {
-            if (element.contains(event.target)) {
-                element.remove()
+        if (confirm('Are you sure you want to delete this item?')) {
+            if (this.getCurrentNode(event)) {
+                this.getCurrentNode(event).remove()
                 this.itemsCountValue--
+                this.updatePositionValues()
             }
-        })
-
-        this.updatePositionValues()
+        }
     }
 
     itemsCountValueChanged() {
+        console.log(this.hasAddButtonTarget, this.hasMaxItemsValue)
         if (false === this.hasAddButtonTarget || 0 === this.maxItemsValue) {
             return
         }
@@ -98,13 +98,6 @@ export default class extends Controller {
         }
 
         this.updatePositionValues()
-    }
-
-    remove(event) {
-        event.preventDefault()
-
-        if (confirm('Are you sure you want to delete this item?'))
-            this.getCurrentNode(event).remove()
     }
 
     capitalizeString(str) {

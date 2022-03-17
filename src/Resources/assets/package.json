@@ -17,5 +17,16 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.0.0"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^1.8.1",
+    "autoprefixer": "^10.4.4",
+    "cssnano": "^5.1.4",
+    "postcss": "^8.4.12",
+    "postcss-import": "^14.0.2",
+    "postcss-loader": "^6.2.1",
+    "postcss-nested": "^5.0.6",
+    "postcss-nested-ancestors": "^2.0.0",
+    "webpack-notifier": "^1.15.0"
   }
 }

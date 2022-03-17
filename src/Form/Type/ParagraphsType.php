@@ -168,6 +168,12 @@ class ParagraphsType extends AbstractType
                 return $accessor->getValue($a->vars['data'], $options['sortable_field']) <=> $accessor->getValue($b->vars['data'], $options['sortable_field']);
             });
         }
+
+        $view->vars = array_replace($view->vars, [
+            'row_attr' => Arr::attachToAttrArray($view->vars['row_attr'], [
+                'data-braunstetter--paragraphs--paragraphs-max-items-value' => $options['max_items']
+            ])
+        ]);
     }
 
     /**
@@ -204,6 +210,11 @@ class ParagraphsType extends AbstractType
 
         $resolver->setNormalizer('options', $this->getOptionsNormalizer());
         $resolver->setNormalizer('types_options', $this->getTypesOptionsNormalizer());
+
+        $resolver->define('max_items')
+            ->default(9999)
+            ->allowedTypes('int')
+            ->info('The maximal items allowed for this collection.');
     }
 
     private function getOptionsNormalizer(): Closure

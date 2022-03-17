@@ -1,0 +1,30 @@
+.paragraphs {
+    @apply pl-3 my-3 space-y-3;
+
+    > div {
+        @apply space-y-2;
+
+        > div.paragraph_label {
+            @apply bg-gray-500 text-white px-3 py-1;
+            @apply flex justify-between items-center;
+
+            .icon-line {
+                @apply flex;
+
+                button {
+                    @apply hover:text-gray-300;
+
+                    > svg {
+                        @apply w-8 h-8
+                    }
+                }
+            }
+        }
+
+        > div:not(paragraph_label) {
+            @apply space-y-1;
+        }
+
+    }
+
+}
