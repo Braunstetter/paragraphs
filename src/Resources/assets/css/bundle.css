@@ -1,30 +1,67 @@
 .paragraphs {
-    @apply pl-3 my-3 space-y-3;
+    padding-left: $spacing-3;
+    margin: $spacing-3 0;
+
+    > * + * {
+        margin-top: $spacing-3;
+    }
 
     > div {
-        @apply space-y-2;
+
+        > * + * {
+            margin-top: $spacing-2;
+        }
 
         > div.paragraph_label {
-            @apply bg-gray-500 text-white px-3 py-1;
-            @apply flex justify-between items-center;
+            background-color: $gray;
+            color: white;
+            padding: $spacing-1 $spacing-3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
             .icon-line {
-                @apply flex;
+                display: flex;
 
                 button {
-                    @apply hover:text-gray-300;
+                    &:hover {
+                        color: $light-gray
+                    }
 
                     > svg {
-                        @apply w-8 h-8
+                        height: $spacing-8;
+                        width: $spacing-8;
                     }
                 }
             }
         }
 
         > div:not(paragraph_label) {
-            @apply space-y-1;
+            > * + * {
+                margin-top: $spacing-1;
+            }
         }
 
     }
 
+
+}
+
+.paragraphs_actions {
+    display: flex;
+    margin-top: $spacing-2;
+
+    > * + * {
+        margin: $spacing-2 $spacing-4;
+    }
+
+    svg {
+        flex-shrink: 1;
+        height: $spacing-5;
+        width: $spacing-5;
+    }
+
+    select[name=type] {
+        padding-right: $spacing-8 !important;
+    }
 }

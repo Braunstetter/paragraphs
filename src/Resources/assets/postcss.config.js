@@ -1,6 +1,7 @@
 const postcssConfig = {
     plugins: [
         require('autoprefixer'),
+        require('postcss-simple-vars')({variables: require('./variables')}),
         require('postcss-import'),
         require('postcss-nested-ancestors'),
         require('postcss-nested'),

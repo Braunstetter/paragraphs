@@ -45,6 +45,7 @@
                     {{ source('images/svg/icon-xs_arrow_up.svg') }}
                 </button>
             {% endif %}
+
         </div>
 
 
@@ -55,6 +56,8 @@
 
 {% block _paragraphs_widget %}
 
+    <link rel="stylesheet" type="text/css" href="{{ asset( 'bundles/paragraphs/bundle.css' ) }}" />
+
     {% if prototypes is defined and prototypes is not empty %}
         {% for prototype in prototypes %}
             {%- set attr = attr|merge({ ('data-prototype-' ~ prototype.children._type.vars.value|url_encode) : form_row(prototype) }) -%}
@@ -64,9 +67,9 @@
     {{- block('form_widget') -}}
 
     {% if allow_add %}
-        <div class="actions space-x-3">
+        <div class="paragraphs_actions">
             <label for="type">
-                <select name="type" id="type" class="pr-8" data-braunstetter--paragraphs--paragraphs-target="type">
+                <select name="type" id="type" data-braunstetter--paragraphs--paragraphs-target="type">
                     <option value="">{{ 'Choose a paragraph'|trans }}</option>
                     {% for prototype in prototypes %}
                         <option value="{{ prototype.children._type.vars.value }}">{{ prototype.vars.label }}</option>
