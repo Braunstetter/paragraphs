@@ -134,11 +134,11 @@ class ParagraphsType extends AbstractType
             }, $form->getConfig()->getAttribute('prototypes'));
         }
 
-        $view->vars['row_attr'] = Arr::attachToAttrArray($view->vars['row_attr'], [
+        $view->vars['row_attr'] = Arr::attach($view->vars['row_attr'], [
             'data-controller' => 'braunstetter--paragraphs--paragraphs'
         ]);
 
-        $view->vars['attr'] = Arr::attachToAttrArray($view->vars['attr'], [
+        $view->vars['attr'] = Arr::attach($view->vars['attr'], [
             'data-braunstetter--paragraphs--paragraphs-target' => 'fieldContainer',
             'class' => 'paragraphs'
         ]);
@@ -170,7 +170,7 @@ class ParagraphsType extends AbstractType
         }
 
         $view->vars = array_replace($view->vars, [
-            'row_attr' => Arr::attachToAttrArray($view->vars['row_attr'], [
+            'row_attr' => Arr::attach($view->vars['row_attr'], [
                 'data-braunstetter--paragraphs--paragraphs-max-items-value' => $options['max_items']
             ])
         ]);
