@@ -10,16 +10,12 @@
     "doctrine/common": "^3.2",
     "doctrine/orm": "^2",
     "symfony/form": "^6",
-    "braunstetter/helper" : "^0"
+    "braunstetter/helper": "^0.2.5",
+    "webmozart/assert": "^1.11"
   },
   "autoload": {
     "psr-4": {
       "Braunstetter\\Paragraphs\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Braunstetter\\Paragraphs\\Tests\\": "tests"
     }
   }
 }

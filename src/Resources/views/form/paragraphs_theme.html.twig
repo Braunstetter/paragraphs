@@ -32,17 +32,17 @@
 
             {% if form.parent.vars.allow_delete %}
                 <button data-action="braunstetter--paragraphs--paragraphs#remove">
-                    {{ source('images/svg/icon-remove.svg') }}
+                    {{ source('@Paragraphs/images/svg/icon-remove.svg') }}
                 </button>
             {% endif %}
 
             {% if form.parent.vars.sortable %}
                 <button data-action="braunstetter--paragraphs--paragraphs#moveDown">
-                    {{ source('images/svg/icon-xs_arrow_down.svg') }}
+                    {{ source('@Paragraphs/images/svg/icon-xs_arrow_down.svg') }}
                 </button>
 
                 <button data-action="braunstetter--paragraphs--paragraphs#moveUp">
-                    {{ source('images/svg/icon-xs_arrow_up.svg') }}
+                    {{ source('@Paragraphs/images/svg/icon-xs_arrow_up.svg') }}
                 </button>
             {% endif %}
 
@@ -78,7 +78,7 @@
             </label>
 
             <button data-braunstetter--paragraphs--paragraphs-target="addButton" data-action="braunstetter--paragraphs--paragraphs#addItem">
-                {{ source('images/svg/icon-plus.svg') }}
+                {{ source('@Paragraphs/images/svg/icon-plus.svg') }}
             </button>
         </div>
     {% endif %}

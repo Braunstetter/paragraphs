@@ -19,14 +19,14 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\String\UnicodeString;
+use Webmozart\Assert\Assert;
 
 class ParagraphsType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $prototypes = $this->buildPrototypes($builder, $options);
         if ($options['allow_add'] && $options['prototype']) {
@@ -48,14 +48,24 @@ class ParagraphsType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             /** @var FormInterface $item */
             foreach ($event->getForm() as $childForm) {
-                $childForm->add('position', HiddenType::class);
+                /** @var bool $isSortable */
+                $isSortable = $event->getForm()->getConfig()->getOption('sortable');
+
+                if ($isSortable) {
+                    $childForm->add('position', HiddenType::class);
+                }
             }
         });
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             /** @var FormInterface $item */
             foreach ($event->getForm() as $childForm) {
-                $childForm->add('position', HiddenType::class);
+                /** @var bool $isSortable */
+                $isSortable = $event->getForm()->getConfig()->getOption('sortable');
+
+                if ($isSortable) {
+                    $childForm->add('position', HiddenType::class);
+                }
             }
         });
     }
@@ -69,9 +79,7 @@ class ParagraphsType extends AbstractType
         $useTypesOptions = !empty($options['types_options']);
 
         foreach ($options['types'] as $key => $type) {
-            if ($type instanceof FormTypeInterface) {
-                @trigger_error(sprintf('Passing type instances to PolyCollection is deprecated since version 1.0.5 and will not be supported in 2.0. Use the fully-qualified type class name instead (%s).', get_class($type)), E_USER_DEPRECATED);
-            }
+            Assert::notInstanceOf($type, FormTypeInterface::class);
 
             $typeOptions = $options['options'];
             if ($useTypesOptions) {
@@ -82,6 +90,9 @@ class ParagraphsType extends AbstractType
             }
 
             $typeOptions = array_replace($typeOptions, ['block_prefix' => '_paragraph']);
+            $typeOptions = array_replace($typeOptions, [
+                'row_attr' => ['class' => 'paragraph'],
+            ]);
 
             $prototype = $this->buildPrototype(
                 $builder,
@@ -135,7 +146,8 @@ class ParagraphsType extends AbstractType
         }
 
         $view->vars['row_attr'] = Arr::attach($view->vars['row_attr'], [
-            'data-controller' => 'braunstetter--paragraphs--paragraphs'
+            'data-controller' => 'braunstetter--paragraphs--paragraphs',
+            'class' => 'paragraphs_row',
         ]);
 
         $view->vars['attr'] = Arr::attach($view->vars['attr'], [
@@ -174,6 +186,14 @@ class ParagraphsType extends AbstractType
                 'data-braunstetter--paragraphs--paragraphs-max-items-value' => $options['max_items']
             ])
         ]);
+
+        $view->vars = array_replace($view->vars, [
+            'placeholder' => $options['placeholder']
+        ]);
+
+        foreach ($view->children as $child) {
+            $child->vars['row_attr'] = Arr::attachClass($child->vars['row_attr'], 'paragraph');
+        }
     }
 
     /**
@@ -187,9 +207,9 @@ class ParagraphsType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'allow_add' => false,
             'allow_delete' => false,
             'prototype' => true,
@@ -199,14 +219,16 @@ class ParagraphsType extends AbstractType
             'types_options' => [],
             'index_property' => null,
             'sortable' => true,
-            'sortable_field' => 'position'
-        ));
+            'sortable_field' => 'position',
+            'placeholder' => 'Add new item',
+        ]);
 
         $resolver->setRequired(['types']);
 
         $resolver->setAllowedTypes('types', 'array');
         $resolver->setAllowedTypes('sortable', 'boolean');
         $resolver->setAllowedTypes('sortable_field', 'string');
+        $resolver->setAllowedTypes('placeholder', ['string', 'false']);
 
         $resolver->setNormalizer('options', $this->getOptionsNormalizer());
         $resolver->setNormalizer('types_options', $this->getTypesOptionsNormalizer());
@@ -239,20 +261,7 @@ class ParagraphsType extends AbstractType
         };
     }
 
-    /**
-     * @throws ReflectionException
-     */
-    public function getHandle(string $fqcn): string
-    {
-        $shortName = (new ReflectionClass($fqcn))->getShortName();
-
-        return (new UnicodeString($shortName))
-            ->trimSuffix('Type')
-            ->snake()
-            ->toString();
-    }
-
-    private function addPosition(FormBuilderInterface $form, string $sortable_field)
+    private function addPosition(FormBuilderInterface $form, string $sortable_field): void
     {
         $form->add($sortable_field, HiddenType::class);
     }
